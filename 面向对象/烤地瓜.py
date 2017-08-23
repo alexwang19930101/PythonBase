@@ -1,7 +1,6 @@
 #-*- coding:utf8 -*-
-import sys
 
-class Digua():
+class Digua:
 
     def __init__(self, cookStr="生的",cookTotalTime=0, seasoning=[]):
         self.cookstr = cookStr
