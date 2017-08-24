@@ -1,8 +1,6 @@
 #-*- coding:utf-8 -*-
-from posixfile import fileopen
 import sys
 import os
-from fileinput import filename
 
 
 '''

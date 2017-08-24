@@ -4,7 +4,6 @@
 #导入模块，urllib2用来模拟浏览器的HTTP方法模块
 import json
 import urllib2
-import sys
 from urllib2 import URLError
 
 #url and url header

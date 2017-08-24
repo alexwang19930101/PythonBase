@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 #-*- coding:utf8 -*-
 
-import os, sys
-import glob
 import json
 import urllib2
 from urllib2 import URLError
