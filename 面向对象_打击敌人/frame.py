@@ -67,13 +67,11 @@ def main():
         #5.老王装弹
         print "laowang charged magazine %s" % i
         laowang.magazineCharge(magazine, bullet)
-    #7.弹夹入枪
+    #6.弹夹入枪
     print "put magazine in gun"
     laowang.mountMagazine(gun, magazine)
-    #6.创建敌人
+    #7.创建敌人
     enemy = Person("enemy")
-
-
     #8.持枪对敌
     laowang.holdGun(gun)
     #9.开枪
