@@ -2,9 +2,6 @@
 #-*- coding:utf-8 -*-
 
 import xlwt
-import os
-import sys
-import json
 import datetime
 from zbx_api import Apis
 
@@ -32,7 +29,7 @@ def writeAlertIntoXml(alertInfo=""):
         for j in xrange(len(messagelist)):
             AlertInforSheet.write(i+1,j,messagelist[j])
         #add Trigger_TIME
-        triggerTimeStamp = response['clock']
+        triggerTimeStamp = alertResList['clock']
         triggerTimeStr = datetime.datetime.fromtimestamp(triggerTimeStamp).strftime("%Y-%m-%d %H:%M:%S")
         AlertInforSheet.write(i+1,4,triggerTimeStr)
         
