@@ -19,18 +19,23 @@ def writeAlertIntoXml(alertInfo=""):
     AlertInforSheet = workbook.add_sheet("AlertInforSheet", cell_overwrite_ok=True)
     
     #add Xtitle
-    row0 = ["TRIGGER_NAME","HOST_NAME","TRIGGER_STATUS","TRIGGER_SEVERITY"]
+    row0 = ["TRIGGER_NAME","HOST_NAME","TRIGGER_STATUS","TRIGGER_SEVERITY","TRIGGER_TIME"]
     for i in xrange(len(row0)):
         AlertInforSheet.write(0,i,row0[i])
     
     #add alert information
     response = getAlert()
     alertResList = response['result']
-#     print alertResList
+
     for i in xrange(len(alertResList)):
         messagelist = alertResList[i]['message'].split('*')
         for j in xrange(len(messagelist)):
             AlertInforSheet.write(i+1,j,messagelist[j])
+        #add Trigger_TIME
+        triggerTimeStamp = response['clock']
+        triggerTimeStr = datetime.datetime.fromtimestamp(triggerTimeStamp).strftime("%Y-%m-%d %H:%M:%S")
+        AlertInforSheet.write(i+1,4,triggerTimeStr)
+        
     #save
     workbook.save("alertInformation_%s.xlsx" % datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
     
