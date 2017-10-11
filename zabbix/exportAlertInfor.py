@@ -35,11 +35,7 @@ def writeAlertIntoXml(alertInfo=""):
     workbook.save("alertInformation(%s).xlsx" % datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     
 def main():
-    response = getAlert()
-    
-    alertRes = response['result']
-    print alertRes
-#     writeAlertIntoXml()
+    writeAlertIntoXml()
     
 if __name__ == "__main__":
     main()
