@@ -50,7 +50,7 @@ class Apis():
                 return res_json["result"][i]["hostid"]
             else:
                 continue
-    def ipmi_init(self,ipmi_passwd):
+    def ipmi_init(self,ipmi_passwd,hostname=""):
         auth = self.user_login()
         hostid = self.get_hostid(hostname)
         params = {"hostid": hostid,"ipmi_authtype": -1,"ipmi_privilege": 4,"ipmi_username": "root","ipmi_password": ipmi_passwd}
@@ -58,7 +58,7 @@ class Apis():
         res_json = self.do_request(data)
 #        print(res_json)
 
-    def ipmi_addif(self,ipmi_ip):
+    def ipmi_addif(self,ipmi_ip,hostname=""):
         auth = self.user_login()
         hostid = self.get_hostid(hostname)
         params = {"hostid": hostid,"dns": "","ip": ipmi_ip,"main": 1,"port": "623","type": 3,"useip": 1}
@@ -66,7 +66,7 @@ class Apis():
         res_json = self.do_request(data)
         print(res_json)
 
-    def snmp_addif(self):
+    def snmp_addif(self,hostname=""):
         auth = self.user_login()
         hostid = self.get_hostid(hostname)
         params = {"hostid": hostid,"dns": "","ip": "127.0.0.1","main": 1,"port": "161","type": 2,"useip": 1}
@@ -83,9 +83,3 @@ class Apis():
         return res_json
 #    def get_alerts(self,time_from,time_to):
 
-def main():
-    apis = Apis("10.127.2.49","admin","zabbix")
-    res = apis.get_alerts("host-3","1507564800","1507623810")
-    print res
-if __name__ == "__main__":
-    main()
