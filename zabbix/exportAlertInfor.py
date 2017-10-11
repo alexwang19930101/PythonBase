@@ -29,8 +29,8 @@ def writeAlertIntoXml(alertInfo=""):
         for j in xrange(len(messagelist)):
             AlertInforSheet.write(i+1,j,messagelist[j])
         #add Trigger_TIME
-        triggerTimeStamp = alertResList['clock']
-        triggerTimeStr = datetime.datetime.fromtimestamp(triggerTimeStamp).strftime("%Y-%m-%d %H:%M:%S")
+        triggerTimeStamp = alertResList[i]['clock']
+        triggerTimeStr = datetime.datetime.fromtimestamp(float(triggerTimeStamp)).strftime("%Y-%m-%d %H:%M:%S")
         AlertInforSheet.write(i+1,4,triggerTimeStr)
         
     #save
