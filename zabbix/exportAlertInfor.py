@@ -32,7 +32,7 @@ def writeAlertIntoXml(alertInfo=""):
         for j in xrange(len(messagelist)):
             AlertInforSheet.write(i+1,j,messagelist[j])
     #save
-    workbook.save("alertInformation(%s).xlsx" % datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    workbook.save("alertInformation_%s.xlsx" % datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
     
 def main():
     writeAlertIntoXml()
