@@ -50,36 +50,64 @@ class Apis():
                 return res_json["result"][i]["hostid"]
             else:
                 continue
-    def ipmi_init(self,ipmi_passwd,hostname=""):
+    def ipmi_init(self,ipmi_passwd):
         auth = self.user_login()
+        hostname = socket.gethostname()
         hostid = self.get_hostid(hostname)
         params = {"hostid": hostid,"ipmi_authtype": -1,"ipmi_privilege": 4,"ipmi_username": "root","ipmi_password": ipmi_passwd}
         data = {"jsonrpc" : self.jsonrpc,"method" : "host.update","params" : params,"id" : "3","auth" : auth}
         res_json = self.do_request(data)
 #        print(res_json)
 
-    def ipmi_addif(self,ipmi_ip,hostname=""):
+    def ipmi_addif(self,ipmi_ip):
         auth = self.user_login()
+        hostname = socket.gethostname()
         hostid = self.get_hostid(hostname)
         params = {"hostid": hostid,"dns": "","ip": ipmi_ip,"main": 1,"port": "623","type": 3,"useip": 1}
         data = {"jsonrpc" : self.jsonrpc,"method" : "hostinterface.create","params" : params,"id" : "4","auth" : auth} 
         res_json = self.do_request(data)
         print(res_json)
 
-    def snmp_addif(self,hostname=""):
+    def snmp_addif(self):
         auth = self.user_login()
+        hostname = socket.gethostname()
         hostid = self.get_hostid(hostname)
         params = {"hostid": hostid,"dns": "","ip": "127.0.0.1","main": 1,"port": "161","type": 2,"useip": 1}
         data = {"jsonrpc" : self.jsonrpc,"method" : "hostinterface.create","params" : params,"id" : "5","auth" : auth}
         res_json = self.do_request(data)
              
-    def get_alerts(self,hostname,time_from,time_to):
+    def get_alerts_list(self,hostname,time_from,time_to):
         auth = self.user_login()
         hostid = self.get_hostid(hostname)
-        #params = {"output": "extend","actionids": "84","hostids": hostid,"time_from": time_from,"time_till": time_to}
-        params = {"output": "extend","actionids": "84","hostids": hostid}
+        if time_from == '' and time_to == '':
+            params = {"output": "extend","actionids": "84","hostids": hostid}
+        elif time_from == '':
+            params = {"output": "extend","actionids": "84","hostids": hostid,"time_till": time_to}
+        elif time_to == '':
+            params = {"output": "extend","actionids": "84","hostids": hostid,"time_from": time_from}
+        else:
+            params = {"output": "extend","actionids": "84","hostids": hostid,"time_from": time_from,"time_till": time_to}
         data = {"jsonrpc" : self.jsonrpc,"method" : "alert.get","params" : params,"id" : "6","auth" : auth}
         res_json = self.do_request(data)
         return res_json
-#    def get_alerts(self,time_from,time_to):
 
+    def get_alerts_report(self,time_from,time_to):
+        auth = self.user_login()
+        if time_from == '' and time_to == '':
+            params = {"output": "extend","actionids": "84"}
+        elif time_from == '':
+            params = {"output": "extend","actionids": "84","time_till": time_to}
+        elif time_to == '':
+            params = {"output": "extend","actionids": "84","time_from":time_from}
+        else:
+            params = {"output": "extend","actionids": "84","time_from": time_from,"time_till": time_to}
+        data = {"jsonrpc" : self.jsonrpc,"method" : "alert.get","params" : params,"id" : "7","auth" : auth}
+        res_json = self.do_request(data)
+        return res_json
+
+#def main():
+#    apis = Apis("10.127.2.49","admin","zabbix")
+#    res = apis.get_alerts_list("host-3","1507564800","1507623810")
+#    print res
+#if __name__ == "__main__":
+#    main()
