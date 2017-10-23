@@ -2,7 +2,6 @@
 # encapsulation for zabbix api
 import json
 import urllib2
-import sys
 import socket
 
 

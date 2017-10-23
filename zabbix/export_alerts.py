@@ -42,7 +42,7 @@ class ArgParse():
             AlertInforSheet.write(i+1,4,triggerTimeStr)
             
         #save
-        workbook.save("alertInformation_%s.xlsx" % datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
+        workbook.save("alertInformation_%s.xlsx" % datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S"))
         
 class GetAlerts():
     
