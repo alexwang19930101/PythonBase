@@ -96,7 +96,7 @@ class Apis():
         params = {"output": ["triggerid","description","priority"],"filter": {"value": 1},"sortfield": "priority","sortorder": "DESC"}
         data = {"jsonrpc" : self.jsonrpc,"method" : "trigger.get","params" : params,"id" : "6","auth" : self.auth}
         res_json = self.do_request(data)
-#         print res_json
+        print res_json
         trigger_level = ['information','warning','serious','disaster']
         trigger_levelnum = [0,0,0,0]
         for i in xrange(len(res_json['result'])):
