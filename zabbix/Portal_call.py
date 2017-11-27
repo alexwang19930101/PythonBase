@@ -84,12 +84,12 @@ def main():
     import time
     portal_call = Portal_call()
     time_start = time.time()
-#     res = portal_call.get_host_health()
+    res = portal_call.get_host_health()
 #     res1 = portal_call.get_trigger()
 #     res2 = portal_call.get_memTop(50000)
-    res3 = portal_call.get_cpuTop(10)
+#     res3 = portal_call.get_cpuTop(5)
     time_end = time.time()
-    print res3
+    print res
     print time_end-time_start
         
 if __name__ == "__main__":
