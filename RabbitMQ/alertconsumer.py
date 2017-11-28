@@ -5,12 +5,13 @@ import json,smtplib
 import pika
 
 def send_email(recipients,subject,message):
-    """E-mail generator for received alerts"""
-    headers = ("From: %s\r\nTo: \r\nData: \r\nSubject: %s\r\n\r\n") % ("igis_wxy@fiberhome.com",subject)
-    smtp_server = smtplib.SMTP()
-    smtp_server.connenct("mail.fiberhome.com",25)
-    smtp_server.sendmail("igis_wxy@fiberhome.com", recipients, headers + str(message))
-    smtp_server.close()
+#     """E-mail generator for received alerts"""
+#     headers = ("From: %s\r\nTo: \r\nData: \r\nSubject: %s\r\n\r\n") % ("igis_wxy@fiberhome.com",subject)
+#     smtp_server = smtplib.SMTP()
+#     smtp_server.connenct("mail.fiberhome.com",25)
+#     smtp_server.sendmail("igis_wxy@fiberhome.com", recipients, headers + str(message))
+#     smtp_server.close()
+    print("From: %s\r\nTo: \r\nData: \r\nSubject: %s\r\n\r\n") % ("igis_wxy@fiberhome.com",subject)
 
 def critical_notify(channel,method,header,body):
     """"sends critical alerts to administrators via e-mail"""
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     AMQP_EXCHANGE = "alerts"
     
     creds_broker = pika.PlainCredentials(AMQP_USER,AMQP_PASS)
-    conn_params = pika.ConnectionParameters(AMQP_SERVER,virtual_host=AMQP_VHOST,creds_broker)
+    conn_params = pika.ConnectionParameters(AMQP_SERVER,virtual_host=AMQP_VHOST,credential = creds_broker)
     conn_broker = pika.BlockingConnection(conn_params)
     channel = conn_broker.channel()
 
